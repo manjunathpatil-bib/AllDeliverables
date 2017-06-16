@@ -1,0 +1,821 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE Report
+[
+<!ELEMENT Report (General ,(Doc|BPT)) >
+<!ATTLIST Report ver CDATA #REQUIRED tmZone CDATA #REQUIRED>
+
+<!ELEMENT General ( DocLocation ) >
+<!ATTLIST General productName CDATA #REQUIRED productVer CDATA #REQUIRED os CDATA #REQUIRED host CDATA #REQUIRED qcserver CDATA #IMPLIED qcproject CDATA #IMPLIED SolManSolutionId CDATA #IMPLIED SolManProjectId CDATA #IMPLIED SolManTestPlanId CDATA #IMPLIED SolManTestPackageId CDATA #IMPLIED SolManUserInfoData CDATA #IMPLIED  >
+
+<!ELEMENT BPT (DName,Res,DVer?,TSet?,TInst?,NodeArgs,AdditionalInfo*,Doc*) >
+<!ATTLIST BPT rID ID #REQUIRED >
+
+<!ELEMENT Doc (DName,ConfName?,Res,DVer?,TSet?,TInst?,RunType?,DT?,AdditionalInfo*,Step*,DIter*,Step*,Action*,Doc*,Summary?,TestMaintenanceSummary*,NodeArgs?) >
+<!ATTLIST Doc rID ID #REQUIRED type (Test|BC|BPTWrapperTest|Flow|Group|Action) "Test" productName CDATA #REQUIRED BCIter CDATA #IMPLIED >
+
+<!ELEMENT RunType ( #PCDATA )>
+<!ATTLIST RunType fmStep (False|True) "False" batch (False|True) "False" upDesc (False|True) "False" upChk (False|True) "False" upAS (False|True) "False">
+
+<!ELEMENT DName ( #PCDATA ) >
+
+<!ELEMENT ConfName ( #PCDATA ) >
+
+<!ELEMENT Res ( #PCDATA ) >
+
+<!ELEMENT AdditionalInfo (AdditionalDataName,AdditionalDataValue ) >
+
+<!ELEMENT AdditionalDataName ( #PCDATA ) >
+
+<!ELEMENT AdditionalDataValue ( #PCDATA ) >
+
+<!ELEMENT DVer ( #PCDATA ) >
+
+<!ELEMENT TSet ( #PCDATA ) >
+
+<!ELEMENT TInst ( #PCDATA ) >
+
+<!ELEMENT DIter (Step*,Action+,Summary?,NodeArgs)>
+<!ATTLIST DIter rID ID #REQUIRED iterID CDATA #REQUIRED>
+
+<!ELEMENT DocLocation ( #PCDATA )>
+
+<!ELEMENT Action (AName,AIter*,(Step|HtmlStep|Action)*, Summary,ActionMaintenanceSummary*, NodeArgs ) >
+<!ATTLIST Action rID ID #REQUIRED>
+
+<!ELEMENT AIter ((Step|HtmlStep|Action)*,DataMapping?, Summary?,NodeArgs) >
+<!ATTLIST AIter rID ID #REQUIRED iterID CDATA #REQUIRED isCountable (False|True) "False" >
+
+<!ELEMENT AName ( #PCDATA ) >
+
+<!ELEMENT TestMaintenanceSummary (ActionMaintenanceSummary*) >
+<!ATTLIST TestMaintenanceSummary ObjectsAdded CDATA #REQUIRED ObjectsUpdated CDATA #REQUIRED StepsUpdated CDATA #REQUIRED StepsComments CDATA #REQUIRED><!ELEMENT ActionMaintenanceSummary (ObjectChange* ) >
+<!ATTLIST ActionMaintenanceSummary Action CDATA #REQUIRED Objects CDATA #REQUIRED Updated CDATA #REQUIRED LinesTotal CDATA #REQUIRED Added CDATA #REQUIRED LinesUpdated CDATA #REQUIRED>
+
+<!ELEMENT ObjectChange  (Hierarchy, PropertyChangeList* ) >
+<!ATTLIST ObjectChange Operation CDATA #IMPLIED OriginalRepository CDATA #IMPLIED>
+
+<!ELEMENT PropertyChangeList (PropertyDef*) >
+
+<!ELEMENT PropertyDef (OriginalValue, NewValue) >
+<!ATTLIST PropertyDef PropName CDATA #REQUIRED OriginRegularExpression (True|False) "False" NewRegularExpression (True|False) "False" AddedProperty (True|False) "False" >
+
+<!ELEMENT OriginalValue ( #PCDATA )>
+
+<!ELEMENT NewValue ( #PCDATA )>
+
+<!ELEMENT Hierarchy  (ObjectName, Hierarchy*) >
+<!ATTLIST Hierarchy MicClass CDATA #REQUIRED>
+
+<!ELEMENT ObjectName  ( #PCDATA ) >
+
+<!ELEMENT Step (Obj,Details,Time,TimeTick* ,(Step|HtmlStep|Doc)*, DataMapping?, NodeArgs) >
+<!ATTLIST Step rID ID #REQUIRED retval CDATA #IMPLIED>
+
+<!ELEMENT HtmlStep (HTML,TimeTick*,(Step|HtmlStep|Doc)*,NodeArgs) >
+<!ATTLIST HtmlStep rID ID #REQUIRED >
+
+<!ELEMENT Obj ( #PCDATA ) >
+<!ATTLIST Obj plainTxt (False|True) "True">
+
+<!ELEMENT Details ( #PCDATA ) >
+<!ATTLIST Details plainTxt (False|True) "True">
+
+<!ELEMENT Time ( #PCDATA ) >
+
+<!ELEMENT HTML ( #PCDATA ) >
+
+<!ELEMENT Disp ( #PCDATA ) >
+
+<!ELEMENT TimeTick ( #PCDATA ) >
+
+<!ELEMENT DataMapping ( DataMappedItem* )>
+<!ELEMENT DataMappedItem EMPTY >
+<!ATTLIST DataMappedItem dsName CDATA #REQUIRED >
+<!ATTLIST DataMappedItem rowId CDATA #REQUIRED >
+
+<!ELEMENT NodeArgs (Disp,TopPane?,BtmPane?,ExtendedInfo? )>
+<!ATTLIST NodeArgs eType CDATA #REQUIRED icon CDATA #REQUIRED nRep CDATA #REQUIRED UserNote CDATA #IMPLIED filter (False|True) "True">
+<!ATTLIST NodeArgs status (Passed|Failed|Done|Warning|Information) "Done">
+<!ATTLIST NodeArgs iconSel CDATA #IMPLIED nType CDATA #IMPLIED MovieMarker CDATA "">
+<!ATTLIST NodeArgs Source CDATA #IMPLIED SourceLine CDATA #IMPLIED StepFlowItemKey CDATA #IMPLIED >
+
+<!ELEMENT TopPane (Path)>
+
+<!ELEMENT BtmPane ( (Path|WR)?,ASHilite?)>
+<!ATTLIST BtmPane vType CDATA "HTML">
+
+<!ELEMENT Path ( #PCDATA ) >
+
+<!ELEMENT ASHilite ( #PCDATA ) >
+
+<!ELEMENT WR ( #PCDATA ) >
+
+<!ELEMENT ExtendedInfo ( StepData ) >
+
+<!ATTLIST ExtendedInfo StepType CDATA #REQUIRED>
+<!ELEMENT DT (NodeArgs) >
+<!ATTLIST DT rID ID #REQUIRED>
+
+<!ELEMENT Summary (Param*)>
+<!ATTLIST Summary sTime CDATA #IMPLIED eTime CDATA #IMPLIED passed CDATA #IMPLIED failed CDATA #IMPLIED warnings CDATA #IMPLIED retval CDATA #IMPLIED stopped (False|True) "False" >
+
+<!ELEMENT Param (ParamName,ParamVal)+ >
+<!ATTLIST Param paramInOut (In|Out) "In">
+
+<!ELEMENT ParamName ( #PCDATA ) >
+
+<!ELEMENT ParamVal ( #PCDATA ) >
+
+]
+>
+<Report ver="2.0" tmZone="India Standard Time">
+<General productName="HP Unified Functional Testing" productVer="12.53" os="Windows 7" host="INL-7RFXWF2"><DocLocation><![CDATA[C:\latestScript\Hybrid-Framework\TestScript\MainScript]]></DocLocation></General>
+<Doc rID="T1"   productName= "HP Unified Functional Testing"  >
+<DName><![CDATA[MainScript]]></DName>
+<Res><![CDATA[Res1]]></Res>
+<DT rID="T2">
+<NodeArgs eType="Table" icon="2" nRep="4" filter="False" >
+<Disp><![CDATA[Run-Time Data Table]]></Disp>
+<BtmPane vType="Table" >
+<Path><![CDATA[Default.xls]]></Path>
+</BtmPane>
+</NodeArgs>
+</DT>
+<DIter rID="T3" iterID="1" >
+<Action rID="T4">
+<AName><![CDATA[Action1]]></AName>
+<Action rID="T5">
+<AName><![CDATA[Login [Login]]]></AName>
+<Step rID="T6">
+<Obj plainTxt="False" ><![CDATA[SystemUtil]]></Obj>
+<Details plainTxt="False" ><![CDATA[SystemUtil]]></Details>
+<Time><![CDATA[6/14/2017 - 16:47:43]]></Time>
+<TimeTick>1497439063</TimeTick>
+<Step rID="T7">
+<Obj plainTxt="False" ><![CDATA[Run "C:\Program Files (x86)\Internet Explorer\iexplore.exe",1]]></Obj>
+<Details plainTxt="False" ><![CDATA[Run "C:\Program Files (x86)\Internet Explorer\iexplore.exe",1]]></Details>
+<Time><![CDATA[6/14/2017 - 16:47:43]]></Time>
+<TimeTick>1497439063</TimeTick>
+<NodeArgs eType="Replay" icon="6" nRep="12" status="Passed" Source="Login [Login]" SourceLine="-1" >
+<Disp><![CDATA[Run "C:\Program Files (x86)\Internet Explorer\iexplore.exe",1]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Replay" icon="6" nRep="11" status="Passed" Source="Login [Login]" SourceLine="-1" >
+<Disp><![CDATA[SystemUtil]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T8">
+<Obj plainTxt="False" ><![CDATA[Accounts | Salesforce]]></Obj>
+<Details plainTxt="False" ><![CDATA[Browser]]></Details>
+<Time><![CDATA[6/14/2017 - 16:47:55]]></Time>
+<TimeTick>1497439075</TimeTick>
+<Step rID="T9">
+<Obj plainTxt="False" ><![CDATA["Accounts | Salesforce"- Smart Identification]]></Obj>
+<Details plainTxt="False" ><![CDATA[<P><span class="text">The smart identification mechanism was invoked.</span></P><P><SPAN class=text>Reason: object not unique (3 objects found)</SPAN></P>           <SPAN class=text><b>Original description:</b></SPAN><br>micclass=Browser<br><P><FONT face=Verdana size=2><SPAN class=text><B>Smart Identification Alternative Description: </B></SPAN></FONT></P><FONT face=Verdana size=2><u>Base filter properties (3 objects found)&nbsp;</FONT></u><br>
+micclass=Browser<br><br><FONT face=Verdana size=2><u>Optional filter properties</FONT></u><br>
+name=Accounts | Salesforce<SPAN class=Failed> (Skipped)</SPAN><br>title=Accounts | Salesforce - Internet Explorer<SPAN class=Failed> (Skipped)</SPAN><br>openurl=https://empower--uftpoc.cs83.my.salesforce.com/visualforce/session?url=https%3A%2F%2Fempower--uftpoc.lightning.force.com%2Fone%2Fone.app#/sObject/Account/list?filterName=Recent<SPAN class=Failed> (Skipped)</SPAN><br>opentitle=<SPAN class=Failed> (Skipped)</SPAN><br>openedbytestingtool=0<SPAN class=passed> (Used</SPAN>, 3 matches)</SPAN><br>number of tabs=1<SPAN class=passed> (Used</SPAN>, 1 matches)</SPAN><br>]]></Details>
+<Time><![CDATA[6/14/2017 - 16:47:55]]></Time>
+<TimeTick>1497439075</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="15" Source="Login [Login]" SourceLine="-1" >
+<Disp><![CDATA["Accounts | Salesforce"- Smart Identification]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T10">
+<Obj plainTxt="False" ><![CDATA[Login | Salesforce]]></Obj>
+<Details plainTxt="False" ><![CDATA[Page]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:01]]></Time>
+<TimeTick>1497439081</TimeTick>
+<Step rID="T11">
+<Obj plainTxt="False" ><![CDATA[username.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["manjunath.patil@cgi.com"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:01]]></Time>
+<TimeTick>1497439081</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="18" Source="Login [Login]" SourceLine="-1" >
+<Disp><![CDATA[username.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T12">
+<Obj plainTxt="False" ><![CDATA[pw.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["Locked@24$"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:01]]></Time>
+<TimeTick>1497439081</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="21" Source="Login [Login]" SourceLine="-1" >
+<Disp><![CDATA[pw.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T13">
+<Obj plainTxt="False" ><![CDATA[Log In to Sandbox.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:03]]></Time>
+<TimeTick>1497439083</TimeTick>
+<NodeArgs eType="Replay" icon="11" nRep="24" Source="Login [Login]" SourceLine="-1" >
+<Disp><![CDATA[Log In to Sandbox.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="17" Source="Login [Login]" SourceLine="-1" >
+<Disp><![CDATA[Login | Salesforce]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="7" nRep="14" Source="Login [Login]" SourceLine="-1" >
+<Disp><![CDATA[Accounts | Salesforce]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T14">
+<Obj ><![CDATA[Login page]]></Obj>
+<Details ><![CDATA[Home page is shown successfully]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:21]]></Time>
+<TimeTick>1497439101</TimeTick>
+<NodeArgs eType="User" icon="12" nRep="26" status="Passed" Source="Login [Login]" SourceLine="-1" >
+<Disp><![CDATA[Login page]]></Disp>
+</NodeArgs>
+</Step>
+<Summary sTime="6/14/2017 - 16:47:41" eTime="6/14/2017 - 16:48:21" passed="2" failed="0" warnings="0" ></Summary>
+<NodeArgs eType="StartAction" icon="5" nRep="8" status="Passed" >
+<Disp><![CDATA[Login [Login] Summary]]></Disp>
+</NodeArgs>
+</Action>
+<Action rID="T15">
+<AName><![CDATA[AccountCreationBillTo [AccountCreationBillTo]]]></AName>
+<Step rID="T16">
+<Obj plainTxt="False" ><![CDATA[Accounts | Salesforce]]></Obj>
+<Details plainTxt="False" ><![CDATA[Browser]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:23]]></Time>
+<TimeTick>1497439103</TimeTick>
+<Step rID="T17">
+<Obj plainTxt="False" ><![CDATA["Accounts | Salesforce"- Smart Identification]]></Obj>
+<Details plainTxt="False" ><![CDATA[<P><span class="text">The smart identification mechanism was invoked.</span></P><P><SPAN class=text>Reason: object not unique (3 objects found)</SPAN></P>           <SPAN class=text><b>Original description:</b></SPAN><br>micclass=Browser<br><P><FONT face=Verdana size=2><SPAN class=text><B>Smart Identification Alternative Description: </B></SPAN></FONT></P><FONT face=Verdana size=2><u>Base filter properties (3 objects found)&nbsp;</FONT></u><br>
+micclass=Browser<br><br><FONT face=Verdana size=2><u>Optional filter properties</FONT></u><br>
+name=Accounts | Salesforce<SPAN class=Failed> (Skipped)</SPAN><br>title=Accounts | Salesforce - Internet Explorer<SPAN class=Failed> (Skipped)</SPAN><br>openurl=https://empower--uftpoc.cs83.my.salesforce.com/visualforce/session?url=https%3A%2F%2Fempower--uftpoc.lightning.force.com%2Fone%2Fone.app#/sObject/Account/list?filterName=Recent<SPAN class=Failed> (Skipped)</SPAN><br>opentitle=<SPAN class=Failed> (Skipped)</SPAN><br>openedbytestingtool=0<SPAN class=passed> (Used</SPAN>, 3 matches)</SPAN><br>number of tabs=1<SPAN class=passed> (Used</SPAN>, 1 matches)</SPAN><br>]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:23]]></Time>
+<TimeTick>1497439103</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="31" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA["Accounts | Salesforce"- Smart Identification]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T18">
+<Obj plainTxt="False" ><![CDATA[Accounts | Salesforce]]></Obj>
+<Details plainTxt="False" ><![CDATA[Page]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:23]]></Time>
+<TimeTick>1497439103</TimeTick>
+<Step rID="T19">
+<Obj plainTxt="False" ><![CDATA[lnk_MainWinAccounts.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:23]]></Time>
+<TimeTick>1497439103</TimeTick>
+<NodeArgs eType="Replay" icon="13" nRep="34" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[lnk_MainWinAccounts.Click]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T20">
+<Obj plainTxt="False" ><![CDATA[lnk_AccountNew.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:26]]></Time>
+<TimeTick>1497439106</TimeTick>
+<NodeArgs eType="Replay" icon="13" nRep="37" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[lnk_AccountNew.Click]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T21">
+<Obj plainTxt="False" ><![CDATA[Bill To.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:27]]></Time>
+<TimeTick>1497439107</TimeTick>
+<NodeArgs eType="Replay" icon="14" nRep="42" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[Bill To.Click]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T22">
+<Obj plainTxt="False" ><![CDATA[Next.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:28]]></Time>
+<TimeTick>1497439108</TimeTick>
+<NodeArgs eType="Replay" icon="11" nRep="45" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[Next.Click]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T23">
+<Obj plainTxt="False" ><![CDATA[wnd_CreateAccountBillTo]]></Obj>
+<Details plainTxt="False" ><![CDATA[WebElement]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:30]]></Time>
+<TimeTick>1497439110</TimeTick>
+<Step rID="T24">
+<Obj plainTxt="False" ><![CDATA["txt_AccNameBillto"- Smart Identification]]></Obj>
+<Details plainTxt="False" ><![CDATA[<P><span class="text">The smart identification mechanism was invoked.</span></P><P><SPAN class=text>Reason: object not unique (22 objects found)</SPAN></P>           <SPAN class=text><b>Original description:</b></SPAN><br>type=text<br>name=WebEdit<br>micclass=WebEdit<br>html tag=INPUT<br><P><FONT face=Verdana size=2><SPAN class=text><B>Smart Identification Alternative Description: </B></SPAN></FONT></P><FONT face=Verdana size=2><u>Base filter properties (22 objects found)&nbsp;</FONT></u><br>
+type=text<br>micclass=WebEdit<br>html tag=INPUT<br><br><FONT face=Verdana size=2><u>Optional filter properties</FONT></u><br>
+name=WebEdit<SPAN class=passed> (Used</SPAN>, 22 matches)</SPAN><br>html id=2599:0<SPAN class=Failed> (Skipped)</SPAN><br>max length=524288<SPAN class=passed> (Used</SPAN>, 6 matches)</SPAN><br>default value=<SPAN class=passed> (Used</SPAN>, 6 matches)</SPAN><br>class=input uiInput uiInputText uiInput--default uiInput--input<SPAN class=passed> (Used</SPAN>, 1 matches)</SPAN><br>rows=0<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>visible=1<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:30]]></Time>
+<TimeTick>1497439110</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="49" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA["txt_AccNameBillto"- Smart Identification]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T25">
+<Obj plainTxt="False" ><![CDATA[txt_AccNameBillto.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["AccName_Automation_Billto_102"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:31]]></Time>
+<TimeTick>1497439111</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="50" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_AccNameBillto.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T26">
+<Obj plainTxt="False" ><![CDATA["lst_BusinessUnit"- Smart Identification]]></Obj>
+<Details plainTxt="False" ><![CDATA[<P><span class="text">The smart identification mechanism was invoked.</span></P><P><SPAN class=text>Reason: object not unique (3 objects found)</SPAN></P>           <SPAN class=text><b>Original description:</b></SPAN><br>name=select<br>micclass=WebList<br>html tag=SELECT<br><P><FONT face=Verdana size=2><SPAN class=text><B>Smart Identification Alternative Description: </B></SPAN></FONT></P><FONT face=Verdana size=2><u>Base filter properties (3 objects found)&nbsp;</FONT></u><br>
+micclass=WebList<br>html tag=SELECT<br><br><FONT face=Verdana size=2><u>Optional filter properties</FONT></u><br>
+name=select<SPAN class=passed> (Used</SPAN>, 3 matches)</SPAN><br>html id=8650:0<SPAN class=Failed> (Skipped)</SPAN><br>class=select<SPAN class=passed> (Used</SPAN>, 3 matches)</SPAN><br>default value=<SPAN class=passed> (Used</SPAN>, 3 matches)</SPAN><br>items count=2<SPAN class=passed> (Used</SPAN>, 1 matches)</SPAN><br>visible items=5<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>visible=1<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:34]]></Time>
+<TimeTick>1497439114</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="53" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA["lst_BusinessUnit"- Smart Identification]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T27">
+<Obj plainTxt="False" ><![CDATA[lst_BusinessUnit.Select]]></Obj>
+<Details plainTxt="False" ><![CDATA["PLNA"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:34]]></Time>
+<TimeTick>1497439114</TimeTick>
+<NodeArgs eType="Replay" icon="15" nRep="54" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[lst_BusinessUnit.Select]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T28">
+<Obj plainTxt="False" ><![CDATA[btn_Channel.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:35]]></Time>
+<TimeTick>1497439115</TimeTick>
+<NodeArgs eType="Replay" icon="11" nRep="57" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[btn_Channel.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="14" nRep="48" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[wnd_CreateAccountBillTo]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T29">
+<Obj plainTxt="False" ><![CDATA[elm_ChannelOptionlist]]></Obj>
+<Details plainTxt="False" ><![CDATA[WebElement]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:38]]></Time>
+<TimeTick>1497439118</TimeTick>
+<Step rID="T30">
+<Obj plainTxt="False" ><![CDATA[lnk_ChannerlOptions.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:38]]></Time>
+<TimeTick>1497439118</TimeTick>
+<NodeArgs eType="Replay" icon="13" nRep="61" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[lnk_ChannerlOptions.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="14" nRep="60" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[elm_ChannelOptionlist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T31">
+<Obj plainTxt="False" ><![CDATA[wnd_CreateAccountBillTo]]></Obj>
+<Details plainTxt="False" ><![CDATA[WebElement]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:47]]></Time>
+<TimeTick>1497439127</TimeTick>
+<Step rID="T32">
+<Obj plainTxt="False" ><![CDATA[txt_Phone.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["111-111-1122"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:47]]></Time>
+<TimeTick>1497439127</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="65" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_Phone.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T33">
+<Obj plainTxt="False" ><![CDATA[txt_Fax.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["221-111-2222"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:47]]></Time>
+<TimeTick>1497439127</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="68" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_Fax.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T34">
+<Obj plainTxt="False" ><![CDATA[btn_Sub Channel.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:47]]></Time>
+<TimeTick>1497439127</TimeTick>
+<NodeArgs eType="Replay" icon="11" nRep="71" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[btn_Sub Channel.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="14" nRep="64" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[wnd_CreateAccountBillTo]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T35">
+<Obj plainTxt="False" ><![CDATA[elm_SubChannelOptionlist]]></Obj>
+<Details plainTxt="False" ><![CDATA[WebElement]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:49]]></Time>
+<TimeTick>1497439129</TimeTick>
+<Step rID="T36">
+<Obj plainTxt="False" ><![CDATA[lnk_listoptions.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:49]]></Time>
+<TimeTick>1497439129</TimeTick>
+<NodeArgs eType="Replay" icon="13" nRep="75" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[lnk_listoptions.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="14" nRep="74" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[elm_SubChannelOptionlist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T37">
+<Obj plainTxt="False" ><![CDATA[wnd_CreateAccountBillTo]]></Obj>
+<Details plainTxt="False" ><![CDATA[WebElement]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:49]]></Time>
+<TimeTick>1497439129</TimeTick>
+<Step rID="T38">
+<Obj plainTxt="False" ><![CDATA[btn_Commercial Relation.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:49]]></Time>
+<TimeTick>1497439129</TimeTick>
+<NodeArgs eType="Replay" icon="11" nRep="79" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[btn_Commercial Relation.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="14" nRep="78" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[wnd_CreateAccountBillTo]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T39">
+<Obj plainTxt="False" ><![CDATA[elm_CommercialRelationlistblank]]></Obj>
+<Details plainTxt="False" ><![CDATA[WebElement]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:53]]></Time>
+<TimeTick>1497439133</TimeTick>
+<Step rID="T40">
+<Obj plainTxt="False" ><![CDATA[lnk_listoptions.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:53]]></Time>
+<TimeTick>1497439133</TimeTick>
+<NodeArgs eType="Replay" icon="13" nRep="83" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[lnk_listoptions.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="14" nRep="82" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[elm_CommercialRelationlistblank]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T41">
+<Obj plainTxt="False" ><![CDATA[wnd_CreateAccountBillTo]]></Obj>
+<Details plainTxt="False" ><![CDATA[WebElement]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:54]]></Time>
+<TimeTick>1497439134</TimeTick>
+<Step rID="T42">
+<Obj plainTxt="False" ><![CDATA[txt_WebSite.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["http://Michelintesting.com"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:54]]></Time>
+<TimeTick>1497439134</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="87" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_WebSite.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T43">
+<Obj plainTxt="False" ><![CDATA[txt_BillingStreet.Object]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:55]]></Time>
+<TimeTick>1497439135</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="88" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_BillingStreet.Object]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T44">
+<Obj plainTxt="False" ><![CDATA[txt_BillingStreet.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["1 Parkway South"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:56]]></Time>
+<TimeTick>1497439136</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="92" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_BillingStreet.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T45">
+<Obj plainTxt="False" ><![CDATA[txt_BillingCity.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["Greenville"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:57]]></Time>
+<TimeTick>1497439137</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="95" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_BillingCity.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T46">
+<Obj plainTxt="False" ><![CDATA[txt_BillingState.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["SC"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:57]]></Time>
+<TimeTick>1497439137</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="98" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_BillingState.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T47">
+<Obj plainTxt="False" ><![CDATA[txt_Billingzip.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["29676"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:57]]></Time>
+<TimeTick>1497439137</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="101" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_Billingzip.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T48">
+<Obj plainTxt="False" ><![CDATA[txt_BillingCountry.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["US"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:58]]></Time>
+<TimeTick>1497439138</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="104" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_BillingCountry.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T49">
+<Obj plainTxt="False" ><![CDATA[txt_ShippingStreet.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["1 Parkway South"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:58]]></Time>
+<TimeTick>1497439138</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="107" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_ShippingStreet.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T50">
+<Obj plainTxt="False" ><![CDATA[txt_ShippingCity.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["Greenville"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:59]]></Time>
+<TimeTick>1497439139</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="110" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_ShippingCity.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T51">
+<Obj plainTxt="False" ><![CDATA[txt_Shippingstate.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["SC"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:59]]></Time>
+<TimeTick>1497439139</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="113" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_Shippingstate.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T52">
+<Obj plainTxt="False" ><![CDATA[txt_Shippingzip.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["29676"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:48:59]]></Time>
+<TimeTick>1497439139</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="116" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_Shippingzip.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T53">
+<Obj plainTxt="False" ><![CDATA[txt_ShippingCoutry.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["US"]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:00]]></Time>
+<TimeTick>1497439140</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="119" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[txt_ShippingCoutry.Set]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T54">
+<Obj plainTxt="False" ><![CDATA[btn_Credit Rating.Object]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:02]]></Time>
+<TimeTick>1497439142</TimeTick>
+<NodeArgs eType="Replay" icon="11" nRep="120" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[btn_Credit Rating.Object]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T55">
+<Obj plainTxt="False" ><![CDATA[btn_Credit Rating.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:02]]></Time>
+<TimeTick>1497439142</TimeTick>
+<NodeArgs eType="Replay" icon="11" nRep="124" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[btn_Credit Rating.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="14" nRep="86" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[wnd_CreateAccountBillTo]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T56">
+<Obj plainTxt="False" ><![CDATA[elm_CreditRatingOptionlist]]></Obj>
+<Details plainTxt="False" ><![CDATA[WebElement]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:03]]></Time>
+<TimeTick>1497439143</TimeTick>
+<Step rID="T57">
+<Obj plainTxt="False" ><![CDATA[lnk_listoptions.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:03]]></Time>
+<TimeTick>1497439143</TimeTick>
+<NodeArgs eType="Replay" icon="13" nRep="128" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[lnk_listoptions.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="14" nRep="127" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[elm_CreditRatingOptionlist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T58">
+<Obj plainTxt="False" ><![CDATA[wnd_CreateAccountBillTo]]></Obj>
+<Details plainTxt="False" ><![CDATA[WebElement]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:04]]></Time>
+<TimeTick>1497439144</TimeTick>
+<Step rID="T59">
+<Obj plainTxt="False" ><![CDATA[btn_Source Country.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:04]]></Time>
+<TimeTick>1497439144</TimeTick>
+<NodeArgs eType="Replay" icon="11" nRep="132" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[btn_Source Country.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="14" nRep="131" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[wnd_CreateAccountBillTo]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T60">
+<Obj plainTxt="False" ><![CDATA[elm_SourceCountryOptionlist]]></Obj>
+<Details plainTxt="False" ><![CDATA[WebElement]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:04]]></Time>
+<TimeTick>1497439144</TimeTick>
+<Step rID="T61">
+<Obj plainTxt="False" ><![CDATA[lnk_listoptions.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:04]]></Time>
+<TimeTick>1497439144</TimeTick>
+<NodeArgs eType="Replay" icon="13" nRep="136" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[lnk_listoptions.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="14" nRep="135" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[elm_SourceCountryOptionlist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T62">
+<Obj plainTxt="False" ><![CDATA["Save"- Smart Identification]]></Obj>
+<Details plainTxt="False" ><![CDATA[<P><span class="text">The smart identification mechanism was invoked.</span></P><P><SPAN class=text>Reason: object not unique (2 objects found)</SPAN></P>           <SPAN class=text><b>Original description:</b></SPAN><br>type=button<br>name=Save<br>micclass=WebButton<br>html tag=BUTTON<br><P><FONT face=Verdana size=2><SPAN class=text><B>Smart Identification Alternative Description: </B></SPAN></FONT></P><FONT face=Verdana size=2><u>Base filter properties (28 objects found)&nbsp;</FONT></u><br>
+micclass=WebButton<br>html tag=BUTTON<br><br><FONT face=Verdana size=2><u>Optional filter properties</FONT></u><br>
+name=Save<SPAN class=passed> (Used</SPAN>, 2 matches)</SPAN><br>type=button<SPAN class=passed> (Used</SPAN>, 2 matches)</SPAN><br>html id=<SPAN class=passed> (Used</SPAN>, 2 matches)</SPAN><br>value=Save<SPAN class=passed> (Used</SPAN>, 2 matches)</SPAN><br>class=slds-button slds-button--neutral uiButton--default uiButton--brand uiButton forceActionButton<SPAN class=passed> (Used</SPAN>, 1 matches)</SPAN><br>visible=1<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:05]]></Time>
+<TimeTick>1497439145</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="139" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA["Save"- Smart Identification]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T63">
+<Obj plainTxt="False" ><![CDATA[Save.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:05]]></Time>
+<TimeTick>1497439145</TimeTick>
+<NodeArgs eType="Replay" icon="11" nRep="140" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[Save.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="33" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[Accounts | Salesforce]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="7" nRep="30" Source="AccountCreationBillTo [AccountCreationBillTo]" SourceLine="-1" >
+<Disp><![CDATA[Accounts | Salesforce]]></Disp>
+</NodeArgs>
+</Step>
+<Summary sTime="6/14/2017 - 16:48:21" eTime="6/14/2017 - 16:49:10" passed="0" failed="0" warnings="0" ></Summary>
+<NodeArgs eType="StartAction" icon="5" nRep="28" >
+<Disp><![CDATA[AccountCreationBillTo [AccountCreationBillTo] Summary]]></Disp>
+</NodeArgs>
+</Action>
+<Action rID="T64">
+<AName><![CDATA[LogOut [LogOut]]]></AName>
+<Step rID="T65">
+<Obj plainTxt="False" ><![CDATA[Home | Salesforce]]></Obj>
+<Details plainTxt="False" ><![CDATA[Browser]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:15]]></Time>
+<TimeTick>1497439155</TimeTick>
+<Step rID="T66">
+<Obj plainTxt="False" ><![CDATA["Home | Salesforce"- Smart Identification]]></Obj>
+<Details plainTxt="False" ><![CDATA[<P><span class="text">The smart identification mechanism was invoked.</span></P><P><SPAN class=text>Reason: object not unique (3 objects found)</SPAN></P>           <SPAN class=text><b>Original description:</b></SPAN><br>micclass=Browser<br><P><FONT face=Verdana size=2><SPAN class=text><B>Smart Identification Alternative Description: </B></SPAN></FONT></P><FONT face=Verdana size=2><u>Base filter properties (3 objects found)&nbsp;</FONT></u><br>
+micclass=Browser<br><br><FONT face=Verdana size=2><u>Optional filter properties</FONT></u><br>
+name=Home | Salesforce<SPAN class=Failed> (Skipped)</SPAN><br>title=Lightning Experience<SPAN class=passed> (Used</SPAN>, 1 matches)</SPAN><br>openurl=https://empower--uftpoc.cs83.my.salesforce.com<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>opentitle=Login | Salesforce<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>hasstatusbar=0<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>hasmenubar=-1<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>hastoolbar=-1<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>openedbytestingtool=0<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>number of tabs=2<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:15]]></Time>
+<TimeTick>1497439155</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="145" Source="LogOut [LogOut]" SourceLine="-1" >
+<Disp><![CDATA["Home | Salesforce"- Smart Identification]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T67">
+<Obj plainTxt="False" ><![CDATA[Home | Salesforce]]></Obj>
+<Details plainTxt="False" ><![CDATA[Page]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:15]]></Time>
+<TimeTick>1497439155</TimeTick>
+<Step rID="T68">
+<Obj plainTxt="False" ><![CDATA[View profile.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:15]]></Time>
+<TimeTick>1497439155</TimeTick>
+<NodeArgs eType="Replay" icon="11" nRep="148" Source="LogOut [LogOut]" SourceLine="-1" >
+<Disp><![CDATA[View profile.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="147" Source="LogOut [LogOut]" SourceLine="-1" >
+<Disp><![CDATA[Home | Salesforce]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="7" nRep="144" Source="LogOut [LogOut]" SourceLine="-1" >
+<Disp><![CDATA[Home | Salesforce]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T69">
+<Obj plainTxt="False" ><![CDATA[Home | Salesforce_2]]></Obj>
+<Details plainTxt="False" ><![CDATA[Browser]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:18]]></Time>
+<TimeTick>1497439158</TimeTick>
+<Step rID="T70">
+<Obj plainTxt="False" ><![CDATA["Home | Salesforce_2"- Smart Identification]]></Obj>
+<Details plainTxt="False" ><![CDATA[<P><span class="text">The smart identification mechanism was invoked.</span></P><P><SPAN class=text>Reason: object not unique (3 objects found)</SPAN></P>           <SPAN class=text><b>Original description:</b></SPAN><br>micclass=Browser<br><P><FONT face=Verdana size=2><SPAN class=text><B>Smart Identification Alternative Description: </B></SPAN></FONT></P><FONT face=Verdana size=2><u>Base filter properties (3 objects found)&nbsp;</FONT></u><br>
+micclass=Browser<br><br><FONT face=Verdana size=2><u>Optional filter properties</FONT></u><br>
+name=Home | Salesforce<SPAN class=Failed> (Skipped)</SPAN><br>title=Lightning Experience<SPAN class=passed> (Used</SPAN>, 1 matches)</SPAN><br>openurl=https://empower--uftpoc.cs83.my.salesforce.com<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>opentitle=Login | Salesforce<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>hasstatusbar=0<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>hasmenubar=-1<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>hastoolbar=-1<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>openedbytestingtool=0<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>number of tabs=2<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:18]]></Time>
+<TimeTick>1497439158</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="151" Source="LogOut [LogOut]" SourceLine="-1" >
+<Disp><![CDATA["Home | Salesforce_2"- Smart Identification]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T71">
+<Obj plainTxt="False" ><![CDATA[Home | Salesforce]]></Obj>
+<Details plainTxt="False" ><![CDATA[Page]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:18]]></Time>
+<TimeTick>1497439158</TimeTick>
+<Step rID="T72">
+<Obj plainTxt="False" ><![CDATA[Log Out.Click]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:18]]></Time>
+<TimeTick>1497439158</TimeTick>
+<NodeArgs eType="Replay" icon="13" nRep="154" Source="LogOut [LogOut]" SourceLine="-1" >
+<Disp><![CDATA[Log Out.Click]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="153" Source="LogOut [LogOut]" SourceLine="-1" >
+<Disp><![CDATA[Home | Salesforce]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="7" nRep="150" Source="LogOut [LogOut]" SourceLine="-1" >
+<Disp><![CDATA[Home | Salesforce_2]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T73">
+<Obj plainTxt="False" ><![CDATA[Home | Salesforce]]></Obj>
+<Details plainTxt="False" ><![CDATA[Browser]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:28]]></Time>
+<TimeTick>1497439168</TimeTick>
+<Step rID="T74">
+<Obj plainTxt="False" ><![CDATA[Login | Salesforce]]></Obj>
+<Details plainTxt="False" ><![CDATA[Page]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:28]]></Time>
+<TimeTick>1497439168</TimeTick>
+<Step rID="T75">
+<Obj plainTxt="False" ><![CDATA[Login | Salesforce.Sync]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:28]]></Time>
+<TimeTick>1497439168</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="159" Source="LogOut [LogOut]" SourceLine="-1" >
+<Disp><![CDATA[Login | Salesforce.Sync]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="158" Source="LogOut [LogOut]" SourceLine="-1" >
+<Disp><![CDATA[Login | Salesforce]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="7" nRep="157" Source="LogOut [LogOut]" SourceLine="-1" >
+<Disp><![CDATA[Home | Salesforce]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T76">
+<Obj ><![CDATA[Logout page]]></Obj>
+<Details ><![CDATA[Logout is successfull]]></Details>
+<Time><![CDATA[6/14/2017 - 16:49:28]]></Time>
+<TimeTick>1497439168</TimeTick>
+<NodeArgs eType="User" icon="12" nRep="161" status="Passed" Source="LogOut [LogOut]" SourceLine="-1" >
+<Disp><![CDATA[Logout page]]></Disp>
+</NodeArgs>
+</Step>
+<Summary sTime="6/14/2017 - 16:49:10" eTime="6/14/2017 - 16:49:28" passed="1" failed="0" warnings="0" ></Summary>
+<NodeArgs eType="StartAction" icon="5" nRep="142" status="Passed" >
+<Disp><![CDATA[LogOut [LogOut] Summary]]></Disp>
+</NodeArgs>
+</Action>
+<Summary sTime="6/14/2017 - 16:47:41" eTime="6/14/2017 - 16:49:28" passed="0" failed="0" warnings="0" ><Param ><ParamName><![CDATA[Param1]]></ParamName><ParamVal><![CDATA[]]></ParamVal>
+</Param>
+<Param ><ParamName><![CDATA[Param2]]></ParamName><ParamVal><![CDATA[]]></ParamVal>
+</Param>
+</Summary>
+<NodeArgs eType="StartAction" icon="4" nRep="7" status="Passed" >
+<Disp><![CDATA[Action1 Summary]]></Disp>
+</NodeArgs>
+</Action>
+<NodeArgs eType="StartIteration" icon="3" nRep="6" status="Passed" >
+<Disp><![CDATA[MainScript Iteration 1 (Row 1)]]></Disp>
+</NodeArgs>
+</DIter>
+<Summary sTime="6/14/2017 - 16:47:39" eTime="6/14/2017 - 16:49:28" passed="3" failed="0" warnings="0" ></Summary>
+<NodeArgs eType="StartTest" icon="1" nRep="3" status="Passed" >
+<Disp><![CDATA[Test MainScript Summary]]></Disp>
+</NodeArgs>
+</Doc>
+</Report>

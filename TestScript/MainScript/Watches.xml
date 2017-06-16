@@ -1,0 +1,4 @@
+﻿<Properties>
+  <WatchEntry0 value="Trim(strAccName)" />
+  <WatchEntry1 value="Trim(strBilltoAccNameVerify)" />
+</Properties>

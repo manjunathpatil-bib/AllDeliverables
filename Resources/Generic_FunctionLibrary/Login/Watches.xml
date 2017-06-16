@@ -1,0 +1,6 @@
+﻿<Properties>
+  <WatchEntry0 value="scriptpath" />
+  <WatchEntry1 value="environment.value(&quot;varpath&quot;)" />
+  <WatchEntry2 value="varpath1" />
+  <WatchEntry3 value="environment.value(&quot;varpath1&quot;)" />
+</Properties>
