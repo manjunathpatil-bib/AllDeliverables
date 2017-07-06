@@ -1,0 +1,4 @@
+﻿<Properties>
+  <WatchEntry0 value="obj(0)" />
+  <WatchEntry1 value="obj(0).GetROProperty(&quot;innertext&quot;)" />
+</Properties>
