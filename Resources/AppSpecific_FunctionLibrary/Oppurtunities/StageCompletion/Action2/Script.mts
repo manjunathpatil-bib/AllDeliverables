@@ -51,13 +51,14 @@ For i = 1 To RowCount
 		If RunTest = "Yes" Then
 			'Wait for page to load properly
 			Browser("Home | Salesforce").Page("Home | Salesforce").Sync
-			Browser("OpportunityNew | Salesforce").Page("App Launcher | Salesforce").WebButton("App Launcher").Click
+'			Browser("OpportunityNew | Salesforce").Page("App Launcher | Salesforce").WebButton("App Launcher").Click
 			Wait 3
-			Browser("App Launcher | Salesforce").Page("App Launcher | Salesforce").Link("Opportunities").Click
+'			Browser("App Launcher | Salesforce").Page("App Launcher | Salesforce").Link("Opportunities").Click
 			'Click on Oppurtunities link
-			If Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Exist(conExistTimeout) Then
-				Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Click
-			End If
+'			If Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Exist(conExistTimeout) Then
+'				Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Click
+'			End If
+			ClickonOpportunitiesLink
 			Wait 5 
 '			'Click on the oppurtunityname mentioned in data table
 			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("OppurtunityName").SetTOProperty "text",OpportunityName
@@ -78,31 +79,48 @@ For i = 1 To RowCount
 				'Add a new task
 				AddNewTask()
 				'Change probability value
+				Probability=cstr(Probability)
 				Probability=Probability+"%"
+				If Iterator=2 Then
+					If Browser("OpportunityNew | Salesforce").Page("App Launcher | Salesforce").WebElement("Change Opportunity Owner").Exist(5) Then
+						Browser("OpportunityNew | Salesforce").Page("App Launcher | Salesforce").WebButton("Cancel").Click
+					End If
+				End If
 				Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebButton("OpportunityEditButton").Click
 				Wait 3
+				If Iterator=2 Then
+					If Browser("OpportunityNew | Salesforce").Page("App Launcher | Salesforce").WebElement("Change Opportunity Owner").Exist(5) Then
+						Browser("OpportunityNew | Salesforce").Page("App Launcher | Salesforce").WebButton("Cancel").Click
+					End If
+				End If
 				Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebEdit("ProbabilityEdit").Click
 				Wait 2
 				Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebEdit("ProbabilityEdit").Set Probability
 				Wait 3
 				Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebElement("EditSave").Click
 				Wait 3 
-				Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebElement("Mark Stage as Complete").Click
+				If Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebElement("Mark Stage as Complete").Exist(5) Then
+					Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebElement("Mark Stage as Complete").Click				
+				End If
 				If Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebElement("StageClosingOverlayText").Exist(5) Then
 					Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebList("select").Select 1
 					Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebButton("Save").Click
 				End If
 				Probability=Replace(Probability,"%","")
 				Probability=cint(Probability)+10
+				If Err.Number<>0 Then
+					Exit Do
+				End If
 			Next
+		Wait 10
+		CurrentStage=Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebElement("CurrentStage").GetROProperty("innertext")
+		If CurrentStage="Closed" Then
+			AddNewCase strTCID,""&Scenario,"All stages should be completed","All stages are completed","Pass"
+		Else
+			AddNewCase strTCID,""&Scenario,"All stages should be completed","Error in stage completion. Failed stage : "&CurrentStage,"Fail"	
 		End If
-	Loop While False
-	CurrentStage=Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebElement("CurrentStage").GetROProperty("innertext")
-	If CurrentStage="Closed" Then
-		AddNewCase strTCID,""&Scenario,"All stages should be completed","All stages are completed","Pass"
-	Else
-		AddNewCase strTCID,""&Scenario,"All stages should be completed","Error in stage completion","Fail"	
 	End If
+	Loop While False
 Next
 
 Function AddNewTask()
@@ -122,8 +140,13 @@ Function AddNewTask()
 	Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebEdit("TaskDuedate").Set DueDate
 	'Enter TaskStatus
 	Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebButton("TaskStatus").Click
-	Wait 2
-	Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebMenu("StatusMenu").Select "Completed"
+	Wait 3
+	If Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebMenu("StatusMenu").Exist(5) Then
+			Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebMenu("StatusMenu").Select "Completed"
+	Else
+			Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").Link("Completed").Click
+	End If
+
 	'Click on SAve button
 	Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebButton("TaskSave").Click
 End Function

@@ -1,0 +1,6 @@
+﻿<Properties>
+  <WatchEntry0 value="environment.value(&quot;varpathLogin&quot;)&amp;&quot;ObjectRepository\Oppurtunities\Oppurtunities.tsr&quot;" />
+  <WatchEntry1 value="RowCount" />
+  <WatchEntry2 value="Browser(&quot;Opportunities | Salesforce&quot;).Page(&quot;OppurtunityMainPage&quot;).WebElement(&quot;OppurtunityName&quot;).GetROProperty(&quot;innertext&quot;)" />
+  <WatchEntry3 value="strTCID" />
+</Properties>

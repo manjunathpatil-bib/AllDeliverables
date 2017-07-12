@@ -61,6 +61,3 @@ CloseFile
 'Close all the open browsers after execution
 'CloseAllOpenBrowsers
 
-
-
-

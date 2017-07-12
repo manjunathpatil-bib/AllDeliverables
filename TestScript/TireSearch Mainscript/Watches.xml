@@ -1,0 +1,4 @@
+﻿<Properties>
+  <WatchEntry0 value="environment.value(&quot;varpathLogin&quot;)" />
+  <WatchEntry1 value="environment.value(&quot;varpathLogin&quot;)&amp;&quot;ObjectRepository\PortalLogout.tsr&quot;" />
+</Properties>

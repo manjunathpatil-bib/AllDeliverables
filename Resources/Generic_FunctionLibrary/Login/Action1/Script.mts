@@ -15,7 +15,11 @@ scriptpathLogin = environment("ScriptPath1")
 environment.value("varpathLogin") = Mid(scriptpathLogin,1,Instrrev(Mid(scriptpathLogin,1,instrrev(scriptpathLogin,"\")-1),"\"))
 'msgbox environment.value("varpath")
 
-Repositoriescollection.Add environment.value("varpathLogin")&"ObjectRepository\Login.tsr"
+'Associate the repository only for the first login attempt
+If environment.value("intLoginAttempts")=0 Then
+	Repositoriescollection.Add environment.value("varpathLogin")&"ObjectRepository\Login.tsr"
+End If
+
 
 varpath1 = environment.value("varpathLogin")
 'msgbox varpath1
@@ -53,8 +57,8 @@ For i = 1 To RowCount
 		wait(5)
 		
 		Browser("Accounts | Salesforce").Page("Login | Salesforce").Sync
-
-			If Browser("Accounts | Salesforce").Page("Login | Salesforce").Exist Then
+		wait(5)
+			If Browser("Accounts | Salesforce").Page("Login | Salesforce").WebEdit("username").Exist(20) Then
 				Browser("Accounts | Salesforce").Page("Login | Salesforce").WebEdit("username").Set Username
 				Browser("Accounts | Salesforce").Page("Login | Salesforce").WebEdit("pw").Set Password
 				wait 2
@@ -66,10 +70,15 @@ For i = 1 To RowCount
 		
 			If URLExp = URLAct Then
 				'Reporter.ReportEvent micPass, "Login page", "Home page is shown successfully"
-				AddNewCase 1,"Login to Salesforce","User should be able to login to the application","User is able to login to the application","Pass"
+				AddNewCase strTCID,"Login to Salesforce","User should be able to login to the application","User is able to login to the application","Pass"
 				Else
 				'Reporter.ReportEvent micFail, "Login page", "Home page is not shown"
-				AddNewCase 1,"Login to Salesforce","User should be able to login to the application","User is not able to login to the application","Fail"
+				'Initiate Login Recovery on error
+				If environment.value("intLoginAttempts")=0 Then
+					environment.value("intLoginAttempts")=1
+					LoginRecoverySequence
+				End If
+				AddNewCase strTCID,"Login to Salesforce","User should be able to login to the application","User is not able to login to the application","Fail"
 			End If
 			
 	End If

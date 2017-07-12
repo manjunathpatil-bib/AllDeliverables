@@ -108,9 +108,11 @@ RunTest = Datatable.GetSheet("Sheet1").GetParameter("Run")
           
            	ConditonText = datatable.Value("ConditionText","Sheet1")
           	If ConditonText = ExpMessage  Then
-          	Reporter.ReportEvent micPass, "Mandatory Field Validation", "Mandatory Field validation is success"
+          	'Reporter.ReportEvent micPass, "Mandatory Field Validation", "Mandatory Field validation is success"
+          	AddNewCase strTCID,"Mandatory Field Validation","Mandatory Field should be entered","Mandatory Field : "&ConditonText&" is entered","Pass"
            	Else   
-            Reporter.ReportEvent micFail, "Mandatory Field Validation", "Mandatory Field validation failed"
+            'Reporter.ReportEvent micFail, "Mandatory Field Validation", "Mandatory Field validation failed"
+            AddNewCase strTCID,"Mandatory Field Validation","Mandatory Field should be entered","Mandatory Field : "&ConditonText&" is not entered","Fail"
            	End If
            
            Browser("Accounts | Salesforce").Page("Accounts | Salesforce").WebButton("Cancel").Click @@ hightlight id_;_Browser("Accounts | Salesforce").Page("Accounts | Salesforce").WebButton("Cancel")_;_script infofile_;_ZIP::ssf2.xml_;_

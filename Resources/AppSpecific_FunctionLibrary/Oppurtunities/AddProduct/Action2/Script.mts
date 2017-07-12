@@ -41,12 +41,13 @@ For i = 1 To RowCount
 			'Wait for page to load properly
 			Browser("Home | Salesforce").Page("Home | Salesforce").Sync
 '			Browser("App Launcher | Salesforce").Page("App Launcher | Salesforce").WebButton("App Launcher").Click
-'			Wait 3
+			Wait 3
 '			Browser("App Launcher | Salesforce").Page("App Launcher | Salesforce").Link("Opportunities").Click
 			'Click on Oppurtunities link
-			If Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Exist(conExistTimeout) Then
-				Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Click
-			End If
+			ClickonOpportunitiesLink
+'			If Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Exist(conExistTimeout) Then
+'				Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Click
+'			End If
 			Wait 5 
 			'Click on the oppurtunityname mentioned in data table
 			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("OppurtunityName").SetTOProperty "text",OpportunityName
@@ -84,14 +85,15 @@ For i = 1 To RowCount
 			End If
 	
 			'Click on Oppurtunities link
-			If Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Exist(conExistTimeout) Then
-				Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Click
-			End If
-			Wait 5 
-			'Click on the oppurtunityname mentioned in data table
-			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("OppurtunityName").SetTOProperty "text",OpportunityName
-			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("OppurtunityName").Click
-			Wait 5 
+'			If Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Exist(conExistTimeout) Then
+'				Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Click
+'			End If
+'			Wait 5 
+'			'Click on the oppurtunityname mentioned in data table
+'			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("OppurtunityName").SetTOProperty "text",OpportunityName
+'			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("OppurtunityName").Click
+'			Wait 5 
+			ClickonOpportunitiesLink
 			'Click on Sales detail
 			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("Sales Detail").Click
 			Wait 5 
@@ -107,9 +109,9 @@ For i = 1 To RowCount
 			Browser("Opportunities | Salesforce").Page("Search and add products").Frame("Search and Add Product").WebButton("Add Products").Click
 			Wait 5
 			If Browser("Opportunities | Salesforce").Page("Search and add products").Frame("Search and Add Product").WebElement("Success× Products added").Exist(conExistTimeout) Then
-				AddNewCase strTCID,""&Scenario,"Add product should be successful","Add product is successful","Pass"
+				AddNewCase strTCID,""&Scenario,"Add product should be successful","Product "&Product&" has been added to the opportunity "&OpportunityName,"Pass"
 			Else
-				AddNewCase strTCID,""&Scenario,"Add product should be successful","Add product is not successful","Fail"
+				AddNewCase strTCID,""&Scenario,"Add product should be successful","Product "&Product&" has not been added to the opportunity "&OpportunityName,"Fail"
 			End If
 	    End If
 	Loop While False

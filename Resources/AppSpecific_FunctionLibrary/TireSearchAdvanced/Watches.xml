@@ -1,0 +1,5 @@
+﻿<Properties>
+  <WatchEntry0 value="BrandObj.count-1" />
+  <WatchEntry1 value="BrandObj(Iterator).GetROProperty(&quot;innertext&quot;)" />
+  <WatchEntry2 value="Iterator" />
+</Properties>

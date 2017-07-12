@@ -1,0 +1,4 @@
+﻿<Properties>
+  <WatchEntry0 value="Instrrev(Mid(scriptpathLogin,1,instrrev(scriptpathLogin,&quot;\&quot;)-1),&quot;\&quot;)" />
+  <WatchEntry1 value="Mid(scriptpathLogin,1,Instrrev(Mid(scriptpathLogin,1,instrrev(scriptpathLogin,&quot;\&quot;)-1),&quot;\&quot;))" />
+</Properties>

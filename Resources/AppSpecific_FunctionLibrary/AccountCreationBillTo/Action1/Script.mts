@@ -191,30 +191,30 @@ For k = 1 To RowCount
 		'Account Name verification
 		strAccName=Browser("Accounts | Salesforce").Page("Verifications").WebElement("AccountName").GetROProperty("innertext")
 		If Trim(strAccName)=Trim(strBilltoAccNameVerify) Then
-			AddNewCase 2,"Account Name Verification","Account name should be as expected","Account name:"&strBilltoAccNameVerify&" is as expected","Pass"
+			AddNewCase strTCID,"Account Name Verification","Account name should be as expected","Account name:"&strBilltoAccNameVerify&" is as expected","Pass"
 			'Reporter.ReportEvent micPass,"Account Name Verification", "Account: "&strBilltoAccNameVerify&" Verification Successful"	
 		Else
-			AddNewCase 2,"Account Name Verification","Account name should be as expected","Account name:"&strBilltoAccNameVerify&" is not as expected","Fail"
+			AddNewCase strTCID,"Account Name Verification","Account name should be as expected","Account name:"&strBilltoAccNameVerify&" is not as expected","Fail"
 			'Reporter.ReportEvent micFail, "Account Name Verification", "Account: "&strBilltoAccNameVerify&" Verification Failure"	
 		End If
 		
 		'Sub Channel verification
 		strAccName=Browser("Accounts | Salesforce").Page("Verifications").WebElement("SubChannel").GetROProperty("innertext")
 		If Trim(strAccName)=Trim(SubChannel) Then
-			 AddNewCase 3,"SubChannel Verification","SubChannel should be as expected","SubChannel:"&SubChannel&" is as expected","Pass"
+			 AddNewCase strTCID,"SubChannel Verification","SubChannel should be as expected","SubChannel:"&SubChannel&" is as expected","Pass"
 			'Reporter.ReportEvent micPass,"SubChannel Verification", "SubChannel: "&SubChannel&" Verification Successful"	
 		Else
-		  AddNewCase 3,"SubChannel Verification","SubChannel should be as expected","SubChannel:"&SubChannel&" is not as expected","Fail"
+		  AddNewCase strTCID,"SubChannel Verification","SubChannel should be as expected","SubChannel:"&SubChannel&" is not as expected","Fail"
 			'Reporter.ReportEvent micFail, "SubChannel Verification", "SubChannel: "&SubChannel&" Verification Failure"	
 		End If
 		
 		'Channel verification
 		strAccName=Browser("Accounts | Salesforce").Page("Verifications").WebElement("Channel").GetROProperty("innertext")
 		If Trim(strAccName)=Trim(Channel) Then
-		AddNewCase 4,"Channel Verification","Channel should be as expected","Channel:"&Channel&" is as expected","Pass"
+		AddNewCase strTCID,"Channel Verification","Channel should be as expected","Channel:"&Channel&" is as expected","Pass"
 			'Reporter.ReportEvent micPass,"Channel Verification", "Channel: "&Channel&" Verification Successful"	
 		Else
-		AddNewCase 4,"Channel Verification","Channel should be as expected","Channel:"&Channel&" is not as expected","Fail"
+		AddNewCase strTCID,"Channel Verification","Channel should be as expected","Channel:"&Channel&" is not as expected","Fail"
 			'Reporter.ReportEvent micFail, "Channel Verification", "Channel: "&Channel&" Verification Failure"	
 		End If
 		
@@ -222,10 +222,10 @@ For k = 1 To RowCount
 		strAccName=Browser("Accounts | Salesforce").Page("Verifications").WebElement("Street Name").GetROProperty("innertext")
 		strAccName=Replace(strAccName, ",","")
 		If Trim(strAccName)=Trim(Street) Then
-		AddNewCase 5,"Streetname Verification","Streetname should be as expected","Streetname:"&Street&" is as expected","Pass"
+		AddNewCase strTCID,"Streetname Verification","Streetname should be as expected","Streetname:"&Street&" is as expected","Pass"
 		'Reporter.ReportEvent micPass,"Streetname Verification", "Street: "&Street&" Verification Successful"	
 		Else
-		AddNewCase 5,"Streetname Verification","Streetname should be as expected","Streetname:"&Street&" is not as expected","Fail"
+		AddNewCase strTCID,"Streetname Verification","Streetname should be as expected","Streetname:"&Street&" is not as expected","Fail"
 			'Reporter.ReportEvent micFail, "Streetname Verification", "Street: "&Street&" Verification Failure"	
 		End If
 

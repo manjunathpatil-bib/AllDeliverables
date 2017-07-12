@@ -36,17 +36,16 @@ Default Profile=default.usp
 Lang=none
 
 [TulipInfo]
-ProductName=HP Unified Functional Testing
-Version=12.53
+ProductName=HPE Unified Functional Testing
+Version=14.0
 
 [TulipAddins]
-ActiveX=
 Database=
 File Content=
 Insight=
+Mobile=
 Windows Applications=
 TEA=
-Visual Basic=
 Web=
 XML=
 

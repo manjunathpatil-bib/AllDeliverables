@@ -13,14 +13,23 @@
 scriptpath = environment.value("TestDir")
 'msgbox scriptpath
 environment.value("varpath") =Mid(scriptpath,1,Instrrev(Mid(scriptpath,1,instrrev(scriptpath,"\")-1),"\"))
-'msgbox environment.value("varpath")
+'Variable for the Login Recovery sequence
+environment.value("intLoginAttempts")=0
 
 Datatable.AddSheet "SheetMaster"
 Datatable.ImportSheet environment.value("varpath")&"TestData\TestCaseSelection.xlsx","Sheet1","SheetMaster"
 Rowcount = Datatable.Getsheet("SheetMaster").Getrowcount
 
 'Initialize the report
-OpenFile environment.value("varpath")&"Results\Test.html"
+'Check if the result file exists
+If CheckIfFileExists(environment.value("varpath")&"Results\Test.html")=True Then
+	OpenFile environment.value("varpath")&"Results\Test.html"
+Else
+	CreateFile(environment.value("varpath")&"Results\Test.html")
+End If
+
+'Close all the open browsers before execution
+CloseAllOpenBrowsers
 
 For i = 1 to Rowcount
 	Datatable.SetCurrentRow(i)
@@ -31,16 +40,20 @@ For i = 1 to Rowcount
 	
 	ScriptPath1 = Datatable.GetSheet("SheetMaster").GetParameter("ScriptPath1")
 	If RunScript = "Yes" Then
-	' The relevant Test Script based on 'Yes' will be executed.
-	
-	ScriptPath1 = Environment.Value("varpath")&ScriptPath1
-	
-	Environment.Value ("ScriptPath1")= ScriptPath1
-    'msgbox ScriptPath1
-	RunAction TestScript
+		' The relevant Test Script based on 'Yes' will be executed.
+		
+		ScriptPath1 = Environment.Value("varpath")&ScriptPath1
+		
+		Environment.Value ("ScriptPath1")= ScriptPath1
+	    'msgbox ScriptPath1
+		RunAction TestScript
+		
 	End If
 
 Next
 
 'Closing the report file
 CloseFile
+
+'Close all the open browsers after execution
+CloseAllOpenBrowsers
