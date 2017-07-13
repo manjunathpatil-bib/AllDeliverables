@@ -1,0 +1,5 @@
+﻿<Properties>
+  <WatchEntry0 value="Filt" />
+  <WatchEntry1 value="DataTable.Value(&quot;Filter1&quot;,&quot;BulkDelete&quot;)" />
+  <WatchEntry2 value="Filt(0)" />
+</Properties>
