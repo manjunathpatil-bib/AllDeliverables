@@ -1,0 +1,6 @@
+﻿<Properties>
+  <WatchEntry0 value="arrFiltSplit(0)" />
+  <WatchEntry1 value="IteratorTwo+1" />
+  <WatchEntry2 value="arrFiltSplit(IteratorTwo)(0)" />
+  <WatchEntry3 value="arrFiltSplit(IteratorTwo)(1)" />
+</Properties>
