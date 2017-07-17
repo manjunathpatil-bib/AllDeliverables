@@ -1,4 +1,5 @@
 ﻿<Properties>
-  <WatchEntry0 value="Browser(&quot;OpportunityNew | Salesforce&quot;).Page(&quot;OpportunityNew | Salesforce&quot;).WebElement(&quot;CurrentStage&quot;).GetROProperty(&quot;innertext&quot;)" />
-  <WatchEntry1 value="CurrentStage" />
+  <WatchEntry0 value="intTabCountProduct" />
+  <WatchEntry1 value="strTabProductName" />
+  <WatchEntry2 value="Product" />
 </Properties>

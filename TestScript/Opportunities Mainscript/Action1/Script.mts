@@ -43,11 +43,6 @@ For i = 1 to Rowcount
 		' The relevant Test Script based on 'Yes' will be executed.
 		ScriptPath1 = Environment.Value("varpath")&ScriptPath1
 		Environment.Value ("ScriptPath1")= ScriptPath1
-		
-'RunAction "StageCompletion [StageCompletion]", oneIteration
-'RunAction "CreateOppurtunity [CreateOppurtunity]", oneIteration
-'RunAction "AddProduct [AddProduct]", oneIteration
-'RunAction "Create Oppurtunities [Create Oppurtunity]", oneIteration
 		RunAction TestScript
 		
 		
