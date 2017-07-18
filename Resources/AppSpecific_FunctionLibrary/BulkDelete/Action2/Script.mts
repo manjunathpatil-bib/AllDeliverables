@@ -16,25 +16,19 @@ Dim ScenarioType
 Dim Filt(20)
 Dim arrFiltSplit(20)
 
-
 environment.value("varpathLogin")=Environment("RootResourceDirectory")
 Repositoriescollection.Add environment.value("varpathLogin")&"ObjectRepository\BulkDelete.tsr"
 varpath1=Environment("RootScriptDirectory")
 environment.value("varpath1") = varpath1
 Datatable.AddSheet "BulkDelete"
 Datatable.ImportSheet environment.value("varpath1")&"TestData\BulkDelete.xlsx","Sheet1","BulkDelete"
-
-'Datatable.getsheet("Sheet1").SetCurrentRow 1
 RowCount = Datatable.GetSheet("BulkDelete").GetRowCount
-
-
 
 For i = 1 To RowCount
 Do
 Datatable.SetCurrentRow(i)
 RunTest = Datatable.GetSheet("BulkDelete").GetParameter("Run")
 
-	
 'Fetch Values from the datasheet
 Filt(1)=DataTable.Value("Filter1","BulkDelete")
 Filt(2)=DataTable.Value("Filter2","BulkDelete")
@@ -140,8 +134,7 @@ DeleteOpportunitiesFromOtherOwners=DataTable.Value("DeleteOpportunitiesFromOther
 			End If
 		Else
 			AddNewCase strTCID,""&Scenario,"Home page should be loaded successfully","Home page is not loaded","Fail"
-		End If
-		
+		End If	
     End If
 Loop While False
 Next
