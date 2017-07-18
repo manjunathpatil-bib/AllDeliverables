@@ -11,33 +11,17 @@
 'Environment setup
 
 scriptpathLogin = environment("ScriptPath1")
-
-'environment.value("varpathLogin") = Mid(scriptpathLogin,1,Instrrev(Mid(scriptpathLogin,1,Instrrev(Mid(scriptpathLogin,1,instrrev(scriptpathLogin,"\")-1),"\")),"\"))
-'msgbox environment.value("varpath")
-
 environment.value("varpathLogin")=Environment("RootResourceDirectory")
 'Associate the repository only for the first login attempt
 If environment.value("intLoginAttempts")=0 Then
 	Repositoriescollection.Add environment.value("varpathLogin")&"ObjectRepository\Oppurtunities\Login.tsr"
 End If
-
-
-'varpath1 = environment.value("varpathLogin")
-'msgbox varpath1
-
-'varpath1 = Mid(scriptpathLogin,1,Instrrev(Mid(varpath1,1,instrrev(varpath1,"\")-1),"\"))
-'msgbox varpath1
-
 varpath1=Environment("RootScriptDirectory")
-
 environment.value("varpath1") = varpath1
-
 Datatable.AddSheet "Sheet1"
 Datatable.ImportSheet environment.value("varpath1")&"TestData\Oppurtunities\Login.xlsx","Sheet1","Sheet1"
-
 'Datatable.getsheet("Sheet1").SetCurrentRow 1
 RowCount = Datatable.GetSheet("Sheet1").GetRowCount
-
 
 For i = 1 To RowCount
 	Datatable.SetCurrentRow(i)
@@ -72,10 +56,8 @@ For i = 1 To RowCount
 			URLAct = Browser("Accounts | Salesforce").Page("Login | Salesforce").GetROProperty("URL")
 		
 			If URLExp = URLAct Then
-				'Reporter.ReportEvent micPass, "Login page", "Home page is shown successfully"
 				AddNewCase strTCID,"Login to Salesforce","User should be able to login to the application","User is able to login to the application","Pass"
 				Else
-				'Reporter.ReportEvent micFail, "Login page", "Home page is not shown"
 				'Initiate Login Recovery on error
 				If environment.value("intLoginAttempts")=0 Then
 					environment.value("intLoginAttempts")=1
@@ -87,11 +69,3 @@ For i = 1 To RowCount
 	End If
 
 Next
-
-
-
-
-
-
-
-

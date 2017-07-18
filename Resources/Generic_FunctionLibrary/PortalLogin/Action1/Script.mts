@@ -22,41 +22,25 @@ Dim URLApp
 Dim Version
 Dim URLAct
 
-
-
 scriptpathLogin = environment("ScriptPath1")
 
 environment.value("varpathLogin") = Mid(scriptpathLogin,1,Instrrev(Mid(scriptpathLogin,1,instrrev(scriptpathLogin,"\")-1),"\"))
-'msgbox environment.value("varpath")
-
 Repositoriescollection.Add environment.value("varpathLogin")&"ObjectRepository\PortalLogin_Tire.tsr"
-
 varpath1 = environment.value("varpathLogin")
-'msgbox varpath1
-
 varpath1 = Mid(scriptpathLogin,1,Instrrev(Mid(varpath1,1,instrrev(varpath1,"\")-1),"\"))
-'msgbox varpath1
-
 environment.value("varpath1") = varpath1
-
 Datatable.AddSheet "Sheet1"
 Datatable.ImportSheet environment.value("varpath1")&"TestData\PortalLogin.xlsx","Sheet1","Sheet1"
-
-'Datatable.getsheet("Sheet1").SetCurrentRow 1
 RowCount = Datatable.GetSheet("Sheet1").GetRowCount
-
 
 For i = 1 To RowCount
 	Datatable.SetCurrentRow(i)
 	RunTest = Datatable.GetSheet("Sheet1").GetParameter("Run")
 	
 	If RunTest = "Yes" Then
-		'Datatable.SetCurrentRow(i)
 		Username  = datatable.Value("UserName","Sheet1")
-		'msgbox Username
 		Password = datatable.Value("Password","Sheet1")
 		URLExp = datatable.Value("LoginURL","Sheet1")
-		
 		BroserName = datatable.Value("Browser","Sheet1")
 		BrowserInvoke = datatable.Value("BrowserPath","Sheet1")
 		URLApp = datatable.Value("AppURL","Sheet1")
@@ -65,7 +49,6 @@ For i = 1 To RowCount
 
 		SystemUtil.Run BrowserInvoke,URLApp
 		Browser("PortalBrowser").Page("PortalPage").Sync
-		'Browser("PortalBrowser").FullScreen
 		Wait(5)		
 		If Browser("PortalBrowser").Page("PortalPage").WebEdit("UserName").Exist(20) Then
 			Browser("PortalBrowser").Page("PortalPage").WebEdit("UserName").Set Username
@@ -78,7 +61,6 @@ For i = 1 To RowCount
 		If Browser("PortalBrowser").Page("PortalPage").WebButton("Sign In").Exist(20) Then
 		    Browser("PortalBrowser").Page("PortalPage").WebButton("Sign In").Click	
 		End If	
-		
 		wait 5
 		URLAct = Browser("PortalBrowser").Page("PortalPage").GetROProperty("URL")
 

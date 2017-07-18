@@ -1,5 +1,5 @@
-﻿'Script Name     - TireSearch
-'Description     - Tire Search script
+﻿'Script Name     - OrderSearch
+'Description     - Script implements basic and advanced search for inventory
 'Created By      -
 'Created On      -
 'Modified By     -
@@ -23,43 +23,30 @@ Dim OrderFromDate
 Dim OrderToDate
 Dim ShipToFilter
 Dim ScenarioType
-'environment.value("varpathLogin") = Mid(scriptpathLogin,1,Instrrev(Mid(scriptpathLogin,1,instrrev(scriptpathLogin,"\")-1),"\"))
+
 Repositoriescollection.Add environment.value("varpathLogin")&"ObjectRepository\OrderSearch.tsr"
-
 scriptpathLogin = environment("ScriptPath1")
-
 environment.value("varpathLogin") = Mid(scriptpathLogin,1,Instrrev(Mid(scriptpathLogin,1,instrrev(scriptpathLogin,"\")-1),"\"))
-'msgbox environment.value("varpath")
-
 varpath1 = environment.value("varpathLogin")
-'msgbox varpath1
-
 varpath1 = Mid(scriptpathLogin,1,Instrrev(Mid(varpath1,1,instrrev(varpath1,"\")-1),"\"))
-'msgbox varpath1
-
 environment.value("varpath1") = varpath1
-
 Datatable.AddSheet "OrderSearch"
 Datatable.ImportSheet environment.value("varpath1")&"TestData\OrderSearch.xlsx","Sheet1","OrderSearch"
-
-'Datatable.getsheet("Sheet1").SetCurrentRow 1
 RowCount = Datatable.GetSheet("OrderSearch").GetRowCount
-
-
 
 For i = 1 To RowCount
 Do
-Datatable.SetCurrentRow(i)
-RunTest = Datatable.GetSheet("OrderSearch").GetParameter("Run")
-	
-'Fetch Values from the datasheet
-OrderNumber=DataTable.Value("OrderNumber","OrderSearch")
-PONumber=DataTable.Value("PONumber","OrderSearch")
-ShipTO=DataTable.Value("ShipTo","OrderSearch")
-BillTo=DataTable.Value("BillTo","OrderSearch")
-OrderDate=DataTable.Value("OrderDate","OrderSearch")
-Scenario=DataTable.Value("Scenario","OrderSearch")
-ScenarioType=DataTable.Value("ScenarioType","OrderSearch")
+	Datatable.SetCurrentRow(i)
+	RunTest = Datatable.GetSheet("OrderSearch").GetParameter("Run")
+		
+	'Fetch Values from the datasheet
+	OrderNumber=DataTable.Value("OrderNumber","OrderSearch")
+	PONumber=DataTable.Value("PONumber","OrderSearch")
+	ShipTO=DataTable.Value("ShipTo","OrderSearch")
+	BillTo=DataTable.Value("BillTo","OrderSearch")
+	OrderDate=DataTable.Value("OrderDate","OrderSearch")
+	Scenario=DataTable.Value("Scenario","OrderSearch")
+	ScenarioType=DataTable.Value("ScenarioType","OrderSearch")
 
 	If RunTest = "Yes" Then
 		'Wait for page to load
@@ -280,16 +267,6 @@ ScenarioType=DataTable.Value("ScenarioType","OrderSearch")
 						
 							'Browser("Portal").Page("Order Lines").Link("Back to Orders").Click
 							Wait 5
-	'						If TabIndex<>RowC Then
-	'							'Click on the Advance search link
-	'							Browser("Portal").Page("Orders").Link("Advance Search").Click
-	'							'Set Search string as MSPN
-	'							Browser("Portal").Page("Orders").WebEdit("MSPN #").Set Mspn
-	'							'Click on Search link
-	'							Browser("Portal").Page("Orders").Link("SEARCH").Click
-	'						End If
-						'End If
-						'-------------------------------------------------------
 					Next
 				Else
 					Exit Do
@@ -380,21 +357,6 @@ ScenarioType=DataTable.Value("ScenarioType","OrderSearch")
 							'Click on back to order link
 							'Browser("Portal").Page("Order Lines").Link("Back to Orders").Click
 							Wait 5
-	'						If TabIndex<>RowC Then
-	'							'Click on the Advance search link
-	'							Browser("Portal").Page("Orders").Link("Advance Search").Click
-	'							Wait 2
-	'							'Set Search string as MSPN
-	'							Browser("Portal").Page("Orders").WebEdit("MSPN #").Set Mspn
-	'							'Set Order from and Order to fields
-	'							'Browser("Portal").Page("Orders").WebEdit("OrderFrom").Set OrderFromDate
-	'							'Browser("Portal").Page("Orders").WebEdit("OrderTo").Set OrderToDate
-	'							Wait 2
-	'							'Click on Search link
-	'							Browser("Portal").Page("Orders").Link("SEARCH").Click
-	'						End If
-						'End If
-						'------------------------------------------------------
 					Next
 				Else
 					Exit Do

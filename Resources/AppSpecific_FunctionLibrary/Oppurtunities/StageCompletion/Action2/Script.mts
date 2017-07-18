@@ -11,7 +11,6 @@
 '-------------------------------------------------------------------------------------------------------------
 
 'Environment Setup
-
 Dim RowCount
 Dim RunTest
 Dim intStageCompleted
@@ -19,27 +18,13 @@ intStageCompleted=0
 
 environment.value("varpathLogin")=Environment("RootResourceDirectory")
 Repositoriescollection.Add environment.value("varpathLogin")&"ObjectRepository\Oppurtunities\StageCompletion.tsr"
-
-'scriptpathLogin = environment("ScriptPath1")
-'
-'environment.value("varpathLogin") = Mid(scriptpathLogin,1,Instrrev(Mid(scriptpathLogin,1,instrrev(scriptpathLogin,"\")-1),"\"))
-'
-'varpath1 = environment.value("varpathLogin")
-'
-'varpath1 = Mid(scriptpathLogin,1,Instrrev(Mid(varpath1,1,instrrev(varpath1,"\")-1),"\"))
-'
-'environment.value("varpath1") = varpath1
-
 varpath1=Environment("RootScriptDirectory")
 
 environment.value("varpath1") = varpath1
 
 Datatable.AddSheet "StageCompletion"
 Datatable.ImportSheet environment.value("varpath1")&"TestData\Oppurtunities\StageCompletion.xlsx","Sheet1","StageCompletion"
-'	environment.value("varpath")=Environment("RootScriptDirectory")
-'	OpenFile environment.value("varpath")&"Results\Test.html"
 RowCount = Datatable.GetSheet("StageCompletion").GetRowCount
-
 
 For i = 1 To RowCount
 	Do
@@ -55,13 +40,7 @@ For i = 1 To RowCount
 		If RunTest = "Yes" Then
 			'Wait for page to load properly
 			Browser("Home | Salesforce").Page("Home | Salesforce").Sync
-'			Browser("OpportunityNew | Salesforce").Page("App Launcher | Salesforce").WebButton("App Launcher").Click
 			Wait 3
-'			Browser("App Launcher | Salesforce").Page("App Launcher | Salesforce").Link("Opportunities").Click
-			'Click on Oppurtunities link
-'			If Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Exist(conExistTimeout) Then
-'				Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Click
-'			End If
 			ClickonOpportunitiesLink
 			Wait 5 
 '			'Click on the oppurtunityname mentioned in data table
@@ -162,11 +141,7 @@ Function AddNewTask()
 	'Enter TaskStatus
 	Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebButton("TaskStatus").Click
 	Wait 3
-	'If Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebMenu("StatusMenu").Exist(5) Then
-			'Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebMenu("StatusMenu").Select "Completed"
-	'Else
-			Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").Link("Completed").Click
-	'End If
+	Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").Link("Completed").Click
 	'Click on SAve button
 	Browser("OpportunityNew | Salesforce").Page("OpportunityNew | Salesforce").WebButton("TaskSave").Click
 

@@ -1,5 +1,5 @@
 ﻿'Script Name     - CreateOpportunity
-'Description     - Action creates an opportunity based on the details from the datasheet
+'Description     - Action creates opportunities based on the details from the datasheet
 'Created By      -
 'Created On      -
 'Modified By     -
@@ -11,7 +11,6 @@
 '-------------------------------------------------------------------------------------------------------------
 
 'Environment Setup
-
 Dim RowCount
 Dim RunTest
 
@@ -45,17 +44,8 @@ For i = 1 To RowCount
 			'Wait for page to load properly
 			Browser("Home | Salesforce").Page("Home | Salesforce").Sync
 			Wait 5 
-			'Clicn ok App Launcher
-'			Browser("Home | Salesforce").Page("Home | Salesforce").WebButton("App Launcher").Click
-'			Wait 3
-'			Browser("App Launcher | Salesforce").Page("App Launcher | Salesforce").Link("Opportunities").Click
-			
 			'Click on Oppurtunities link
 			ClickonOpportunitiesLink
-'			If Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Exist(conExistTimeout) Then
-'				Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Click
-'			End If
-'			Wait 5
 			'Wait for page to load completly
 			Browser("Home | Salesforce").Page("Opportunities | Salesforce").Sync
 			'Click on the New button

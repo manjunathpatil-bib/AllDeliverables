@@ -7,9 +7,7 @@
 'Authour         - CGI
 '-------------------------------------------------------------------------------------------------------------
 '-------------------------------------------------------------------------------------------------------------
-
 'Environment Setup
-
 Dim RowCount
 Dim RunTest
 Dim intProductFound
@@ -38,18 +36,11 @@ For i = 1 To RowCount
 		UseStandardPriceorNot=DataTable.Value("UseStandardPriceorNot","AddProduct")
 		
 		If RunTest = "Yes" Then
-
-
 			'Wait for page to load properly
 			Browser("Home | Salesforce").Page("Home | Salesforce").Sync
-'			Browser("App Launcher | Salesforce").Page("App Launcher | Salesforce").WebButton("App Launcher").Click
 			Wait 3
-'			Browser("App Launcher | Salesforce").Page("App Launcher | Salesforce").Link("Opportunities").Click
 			'Click on Oppurtunities link
 			ClickonOpportunitiesLink
-'			If Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Exist(conExistTimeout) Then
-'				Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Click
-'			End If
 			Wait 5 
 			'Click on the oppurtunityname mentioned in data table
 			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("OppurtunityName").SetTOProperty "text",OpportunityName
@@ -69,32 +60,8 @@ For i = 1 To RowCount
 				'Click on Add Product button
 				Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").Link("Add Product").Click
 				Wait 5 	
-				'Check if the product is available in the list
-'				Expected_Item="Product" 
-'				Items_count=Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").WebList("Product").GetROProperty("Items Count")
-'				For iTer=1 to Items_count
-'				     Current_Item=Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").WebList("Product").GetItem(iTer)
-'				     'msgbox Current_Item
-'				     If Current_Item=Expected_Item Then
-'				          'Select Product
-'				          Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").WebList("Product").Select Product
-'				          intProductFound=1
-'				          Exit for
-'				     End If
-'				Next
-'				If intProductFound=0 Then
-'					AddNewCase strTCID,""&Scenario,"User should be able to add the product to the pricebook","Product : "&Product&" is not available to add","Fail"
-'					Exit Do
-'				End If
-'				On Error Resume Next
-'				 Err.Clear
 				 'Select Product
   	             Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").WebList("Product").Select Product
-'  	             If Err.Number<>0 Then
-'  	             	AddNewCase strTCID,""&Scenario,"User should be able to add the product to the pricebook","Product : "&Product&" is not available to add","Fail"
-'  	             	Err.Clear
-'  	             	Exit Do
-'  	             End If
 				'Select Currency 
 				Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").WebList("Currency").Select strCurrency
 				'Click on Next
