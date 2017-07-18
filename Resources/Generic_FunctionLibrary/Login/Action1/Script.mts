@@ -63,13 +63,12 @@ For i = 1 To RowCount
 				Browser("Accounts | Salesforce").Page("Login | Salesforce").WebEdit("pw").Set Password
 				wait 2
 				Browser("Accounts | Salesforce").Page("Login | Salesforce").WebButton("Log In to Sandbox").Click
-				wait 15
+				'wait 15
 			End If
-			
-			URLAct = Browser("Accounts | Salesforce").Page("Login | Salesforce").GetROProperty("URL")
-		
-			If URLExp = URLAct Then
-				'Reporter.ReportEvent micPass, "Login page", "Home page is shown successfully"
+			'Some buffer time for network latency
+			Wait 10
+			'URLAct = Browser("Accounts | Salesforce").Page("Login | Salesforce").GetROProperty("URL")
+			If Browser("Dashboards | Salesforce").Page("Home | Salesforce").WebButton("App Launcher").Exist(conExistTimeout) Then
 				AddNewCase strTCID,"Login to Salesforce","User should be able to login to the application","User is able to login to the application","Pass"
 				Else
 				'Reporter.ReportEvent micFail, "Login page", "Home page is not shown"
@@ -80,7 +79,9 @@ For i = 1 To RowCount
 				End If
 				AddNewCase strTCID,"Login to Salesforce","User should be able to login to the application","User is not able to login to the application","Fail"
 			End If
-			
+			'If URLExp = URLAct Then
+				'Reporter.ReportEvent micPass, "Login page", "Home page is shown successfully"
+			'End If
 	End If
 
 Next

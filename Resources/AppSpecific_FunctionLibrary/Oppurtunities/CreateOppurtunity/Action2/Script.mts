@@ -126,12 +126,12 @@ For i = 1 To RowCount
 			Wait 5
 			If Browser("Opportunities | Salesforce").Page("OppurtunityMainPage").Image("Opportunity").Exist(conExistTimeout) Then
 				If Trim(Browser("Opportunities | Salesforce").Page("OppurtunityMainPage").WebElement("OppurtunityName").GetROProperty("innertext"))=Trim(OpportunityName) Then
-					AddNewCase strTCID,""&Scenario,"Opportunity Creation should be successful","Opportunity "&OpportunityName&" Creation is successful","Pass"
+					AddNewCase strTCID,""&Scenario,"Opportunity : "&OpportunityName&" should be successful","Opportunity "&OpportunityName&" Creation is successful","Pass"
 				Else
-					AddNewCase strTCID,""&Scenario,"Opportunity Creation should be successful","Created Opportunity name doesnt match the entererd value. Expected Value : "&OpportunityName&" Actual Value : "&Browser("Opportunities | Salesforce").Page("OppurtunityMainPage").WebElement("OppurtunityName").GetROProperty("innertext"),"Fail"
+					AddNewCase strTCID,""&Scenario,"Opportunity : "&OpportunityName&" should be successful","Created Opportunity name doesnt match the entererd value. Expected Value : "&OpportunityName&" Actual Value : "&Browser("Opportunities | Salesforce").Page("OppurtunityMainPage").WebElement("OppurtunityName").GetROProperty("innertext"),"Fail"
 				End If
 			Else
-				AddNewCase strTCID,""&Scenario,"Opportunity Creation should be successful","Opportunity Creation is unsuccessful","Fail"
+				AddNewCase strTCID,""&Scenario,"Opportunity : "&OpportunityName&" should be successful","Opportunity Creation is unsuccessful","Fail"
 			End If
 	    End If
 	Loop While False

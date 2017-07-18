@@ -115,10 +115,18 @@ DeleteOpportunitiesFromOtherOwners=DataTable.Value("DeleteOpportunitiesFromOther
 						'Click on search button
 						Browser("Mass Delete Records Page").Page("Mass Delete Records").Frame("vfFrameId").WebButton("Search").Click
 						Wait 5
+						
+						If Browser("Mass Delete Records Page").Page("Mass Delete Records").Frame("vfFrameId").WebElement("RecordsNotFound").Exist(5) Then
+							AddNewCase strTCID,"Bulk Delete Accounts","User should be able to delete the accounts based on the filter criteria","No accounts found with the given filter criteria ","Pass"
+						Else
 						'Check all
-						Browser("Mass Delete Records Page").Page("Mass Delete Records").Frame("vfFrameId").WebCheckBox("allBox").Set "ON"
-						'Click on delete
-						Browser("Mass Delete Records Page").Page("Mass Delete Records").Frame("vfFrameId").WebButton("Delete").Click						
+							Browser("Mass Delete Records Page").Page("Mass Delete Records").Frame("vfFrameId").WebCheckBox("allBox").Set "ON"
+							'Click on delete
+							Browser("Mass Delete Records Page").Page("Mass Delete Records").Frame("vfFrameId").WebButton("Delete").Click	
+							Wait 20
+							AddNewCase strTCID,"Bulk Delete Accounts","User should be able to delete the accounts based on the filter criteria","The accounts were successfully deleted ","Pass"
+						End If
+						
 					Else
 						AddNewCase strTCID,""&Scenario,"Filters for the mass delete operation should be provided in the datatable","No filters are provided in the datatable","Fail"
 					End If				

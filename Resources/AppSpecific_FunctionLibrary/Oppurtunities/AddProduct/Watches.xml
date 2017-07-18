@@ -1,3 +1,5 @@
 ﻿<Properties>
   <WatchEntry0 value="environment.value(&quot;varpathLogin&quot;)&amp;&quot;ObjectRepository\Oppurtunities\AddProduct.tsr&quot;" />
+  <WatchEntry1 value="Environment(&quot;IdSaver&quot;)" />
+  <WatchEntry2 value="varpath1" />
 </Properties>

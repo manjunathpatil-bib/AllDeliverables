@@ -12,6 +12,9 @@
 
 Dim RowCount
 Dim RunTest
+Dim intProductFound
+
+intProductFound=0
 
 environment.value("varpathLogin")=Environment("RootResourceDirectory")
 Repositoriescollection.Add environment.value("varpathLogin")&"ObjectRepository\Oppurtunities\AddProduct.tsr"
@@ -19,7 +22,6 @@ varpath1=Environment("RootScriptDirectory")
 environment.value("varpath1") = varpath1
 Datatable.AddSheet "AddProduct"
 Datatable.ImportSheet environment.value("varpath1")&"TestData\Oppurtunities\Addproduct.xlsx","Sheet1","AddProduct"
-
 RowCount = Datatable.GetSheet("AddProduct").GetRowCount
 
 For i = 1 To RowCount
@@ -67,8 +69,32 @@ For i = 1 To RowCount
 				'Click on Add Product button
 				Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").Link("Add Product").Click
 				Wait 5 	
-				'Select Product
-				Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").WebList("Product").Select Product
+				'Check if the product is available in the list
+'				Expected_Item="Product" 
+'				Items_count=Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").WebList("Product").GetROProperty("Items Count")
+'				For iTer=1 to Items_count
+'				     Current_Item=Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").WebList("Product").GetItem(iTer)
+'				     'msgbox Current_Item
+'				     If Current_Item=Expected_Item Then
+'				          'Select Product
+'				          Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").WebList("Product").Select Product
+'				          intProductFound=1
+'				          Exit for
+'				     End If
+'				Next
+'				If intProductFound=0 Then
+'					AddNewCase strTCID,""&Scenario,"User should be able to add the product to the pricebook","Product : "&Product&" is not available to add","Fail"
+'					Exit Do
+'				End If
+'				On Error Resume Next
+'				 Err.Clear
+				 'Select Product
+  	             Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").WebList("Product").Select Product
+'  	             If Err.Number<>0 Then
+'  	             	AddNewCase strTCID,""&Scenario,"User should be able to add the product to the pricebook","Product : "&Product&" is not available to add","Fail"
+'  	             	Err.Clear
+'  	             	Exit Do
+'  	             End If
 				'Select Currency 
 				Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").WebList("Currency").Select strCurrency
 				'Click on Next
@@ -83,17 +109,12 @@ For i = 1 To RowCount
 				'Click on Save
 				Browser("Opportunities | Salesforce").Page("PBook1 | Salesforce").WebButton("Save").Click
 			End If
-	
-			'Click on Oppurtunities link
-'			If Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Exist(conExistTimeout) Then
-'				Browser("Home | Salesforce").Page("Home | Salesforce").Link("Opportunities").Click
-'			End If
-'			Wait 5 
-'			'Click on the oppurtunityname mentioned in data table
-'			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("OppurtunityName").SetTOProperty "text",OpportunityName
-'			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("OppurtunityName").Click
-'			Wait 5 
 			ClickonOpportunitiesLink
+			Wait 5 
+			'Click on the oppurtunityname mentioned in data table
+			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("OppurtunityName").SetTOProperty "text",OpportunityName
+			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("OppurtunityName").Click
+			Wait 5 
 			'Click on Sales detail
 			Browser("Opportunities | Salesforce").Page("Opportunities | Salesforce").Link("Sales Detail").Click
 			Wait 5 
@@ -102,17 +123,27 @@ For i = 1 To RowCount
 			Wait 5
 			'Click on search button in the search and add products frame
 			Browser("Opportunities | Salesforce").Page("Search and add products").Frame("Search and Add Product").WebButton("Search").Click
-			Wait 5
-			'Click on the seaerch result checkbox
-			Browser("Opportunities | Salesforce").Page("Search and add products").Frame("Search and Add Product").WebElement("SearchResultProductCheckbox").Click
-			'Click on Add products button	
-			Browser("Opportunities | Salesforce").Page("Search and add products").Frame("Search and Add Product").WebButton("Add Products").Click
-			Wait 5
-			If Browser("Opportunities | Salesforce").Page("Search and add products").Frame("Search and Add Product").WebElement("Success× Products added").Exist(conExistTimeout) Then
-				AddNewCase strTCID,""&Scenario,"Add product should be successful","Product "&Product&" has been added to the opportunity "&OpportunityName,"Pass"
+			Wait 10
+			If Browser("Opportunities | Salesforce").Page("Search and add products").Frame("Search and Add Product").WebElement("ResultsNumber").Exist(0)=False Then
+				'Click on the seaerch result checkbox
+				Browser("Opportunities | Salesforce").Page("Search and add products").Frame("Search and Add Product").WebElement("SearchResultProductCheckbox").Click
+				'Click on Add products button	
+				Browser("Opportunities | Salesforce").Page("Search and add products").Frame("Search and Add Product").WebButton("Add Products").Click
+				Wait 10
+				'intTabCountProduct=Browser("Opportunities | Salesforce").Page("Search and add products").Frame("Search and Add Product").WebTable("ProductSearchResults").GetRowCount
+				intTabCountProduct=Browser("Opportunities | Salesforce").Page("Search and add products").Frame("Search and Add Product").WebTable("ProductSearchResults").GetROProperty("rows")
+				For intTabIter = 1 To intTabCountProduct Step 1
+					strTabProductName=Browser("Opportunities | Salesforce").Page("Search and add products").Frame("Search and Add Product").WebTable("ProductSearchResults").GetCellData(intTabIter,2)
+					If strTabProductName=Product Then
+						AddNewCase strTCID,""&Scenario,"Product "&Product&" has been added to the opportunity "&OpportunityName,"Product "&Product&" has not been added to the opportunity "&OpportunityName,"Fail"
+						Exit Do
+					End If
+				Next
 			Else
-				AddNewCase strTCID,""&Scenario,"Add product should be successful","Product "&Product&" has not been added to the opportunity "&OpportunityName,"Fail"
+				AddNewCase strTCID,""&Scenario,"Product "&Product&" has been added to the opportunity "&OpportunityName,"Product "&Product&" is not available in the PriceBook","Fail"			
 			End If
+			Wait 5
+			AddNewCase strTCID,""&Scenario,"Product "&Product&" should be added to the opportunity "&OpportunityName,"Product "&Product&" has been added to the opportunity "&OpportunityName,"Pass"
 	    End If
 	Loop While False
 Next
