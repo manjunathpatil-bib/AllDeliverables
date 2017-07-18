@@ -1,4 +1,6 @@
 ﻿<Properties>
-  <WatchEntry0 value="environment.value(&quot;varpathLogin&quot;)" />
-  <WatchEntry1 value="environment.value(&quot;varpathLogin&quot;)&amp;&quot;ObjectRepository\PortalLogout.tsr&quot;" />
+  <WatchEntry0 value="BrandObj(0).GetROProperty(&quot;innertext&quot;)" />
+  <WatchEntry1 value="Iterator" />
+  <WatchEntry2 value="BrandObj.count-1" />
+  <WatchEntry3 value="BrandObj.count-1" />
 </Properties>

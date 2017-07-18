@@ -20,7 +20,7 @@ scriptpath = environment.value("TestDir")
 environment.value("varpath") =Mid(scriptpath,1,Instrrev(Mid(scriptpath,1,instrrev(scriptpath,"\")-1),"\"))
 
 Datatable.AddSheet "SheetMaster"
-Datatable.ImportSheet environment.value("varpath")&"TestData\PortalTestCase_Tire.xlsx","Sheet1","SheetMaster"
+Datatable.ImportSheet environment.value("varpath")&"TestData\PortalTestCase.xlsx","Sheet1","SheetMaster"
 Rowcount = Datatable.Getsheet("SheetMaster").Getrowcount
 
 'Initialize the report
